@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    
+    <title>Frontend Mentor | Intro section with dropdown navigation</title>
+
+    <style>
+        :root{
+            --white: hsl(0, 0%, 98%);
+            --gray: hsl(0, 0%, 41%);
+            --black: hsl(0, 0%, 8%);
+        }   
+        html{
+            box-sizing: border-box;            
+        }    
+        body,html{      
+            background-color: var(--white);
+            font-family: 'Epilogue', sans-serif;
+        }
+        p{
+            font-size: 16px;
+        }      
+        *,*::before,*::after{
+            text-align: center;
+            box-sizing: inherit;
+            margin: 0;
+            padding: 0;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .img-mobile{
+            width: 100%;
+            object-fit: cover;
+            object-position: center;
+            max-height: 340px;
+        }
+        .img-desktop{
+            display: none;
+        }
+        .img-logo{
+            height: 30px;
+        }
+        header{
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    
+        .main-content{
+            padding: 40px 15px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        .main-content h1{
+            font-size: 35px;
+        }
+        .main-content p{
+            font-size: 18px;
+            line-height: 1.4;
+            color: var(--gray);
+        }
+        .icons-client{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        .btn-learn{
+            background-color: var(--black);
+            color: var(--white);
+            border: 2px solid var(--white);
+            border-radius: 15px;
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: 700;
+            margin: 10px 0  30px;
+            cursor: pointer;       
+            transition: 1s background   linear;
+        }
+        .btn-learn:hover{
+            background-color: var(--white);
+            color: var(--black);
+            border: 2px solid var(--black);
+        }
+        .icon-client{
+            width: 20%;
+        }
+        li{
+            list-style-type: none;
+        }
+        a{
+            text-decoration: none;
+        }
+        .icon-menu{
+            cursor: pointer;
+        }
+        .icon-close{
+            width: 30px;
+            align-self: flex-end;
+            cursor: pointer;
+        }
+        .nav-container{
+            position: fixed;
+            background-color: var(--white);          
+            height: 100vh;
+            top: 0;
+            right: 0;
+            width: 240px;
+            padding: 20px 25px;
+            display: flex;
+            flex-direction: column;           
+            gap: 20px;
+        }
+        .nav,.links{
+            display: flex;
+            flex-direction: column;            
+            align-items: flex-start;
+            gap: 25px;
+        } 
+        .nav a{
+            color: var(--gray);
+            
+            font-weight: 700;
+            font-size: 16px;            
+        }
+        .nav a:hover{
+            color: var(--black);
+        }
+        .btn{
+            width: 100%;
+            border-radius: 15px;
+            padding: 10px;
+            color: var(--gray);
+            font-weight: 700;
+            font-size: 15px;
+            background-color: var(--white);
+            cursor: pointer;
+            margin: 5px 0;
+        }
+        .btns-container{
+            width: 100%;
+        }
+        .btn:hover{
+            border-color: var(--black);
+            color: var(--black);
+        }
+        .btn-login{
+            border: none;
+        }
+        .btn-register{
+            border: none;
+            border: 2px solid var(--gray);
+        }
+        .icon-list,.list{
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;            
+            gap: 20px; 
+            margin-top: -20px;
+        }
+        .icon-arrow{
+            height: 10px;
+            margin-left: 15px;
+        }
+        .icon-list li {
+            display: flex;
+            gap: 20px;
+        }
+        .overlay {
+            background-color: rgba(0,0,0,.5);
+            bottom: 0;
+            display: grid;
+            height: 100%;
+            left: 0;
+            place-items: center;
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 100%;
+        }
+        .hidden{
+            display: none ;
+        }
+        @media (min-width: 928px) {
+            .overlay{
+                display: none;
+            }
+            header{
+                padding: 0 50px;
+                margin-top: 20px;      
+            }
+            header div{
+                width: 100%;
+            }
+            .nav-container{
+                display: flex;
+                flex-direction: row;
+                position: relative;
+                height: auto;
+                width: 100%;
+                justify-content: space-between;
+                padding:0 0 0 25px ;
+            }
+            .links a{
+                display: flex; 
+                gap: 10px;
+                align-items: center;
+            }
+            .links,.nav{
+                flex-direction: row;
+                width: 100%;
+                align-items: center;
+            }
+            .btn{
+                min-width: 150px;
+            }
+            .btns-container{
+                display: flex;
+                gap: 20px;
+                width: auto;
+            }
+            .icon-menu,.icon-close{
+                display: none;
+                
+            }
+            .link-features,.link-company{
+                position: relative;
+            }
+            .icon-list,.list{
+                position: absolute;
+                top: 80px;
+                background-color: var(--white);
+                padding: 5px 25px 25px;
+                border-radius: 15px;   
+                box-shadow: 0px 15px 40px 15px rgba(0,0,0,0.1);   
+            }
+            .icon-list{
+                left:  -30px;
+            }
+            .list{
+                left: 160px;
+            }
+            .container{
+                display: grid;
+                grid-template-columns: 1fr 1fr ;    
+                grid-template-rows: 600px; 
+                gap: 50px;
+                max-width: 1100px;      
+                margin: 20px auto 0; 
+                justify-items: flex-end;
+            }
+            .img-mobile{
+                display: none;
+            }
+            .img-desktop{
+                display: block;
+                height: 100%;    
+                padding-right: 15px;  
+            }
+            .main-content{
+                grid-column: 1/2;
+                grid-row: 1/2;
+                align-items: flex-start;
+                gap: 40px;
+            }
+            .main-content h1{
+                font-size: 80px;
+                text-align: left;
+                max-width: 480px;
+                line-height: 1;
+            }
+            .main-content p{
+                max-width: 400px;
+                text-align: left;
+                
+            }
+            .image-container{
+                grid-column: 2/3;
+            }
+        }
+        @media (min-width: 1400px) {
+            .container{
+                max-width: 1200px;     
+                grid-template-rows: 650px; 
+            }
+
+        }
+    </style>
+</head>
+<body>
+    <div  id="overlay" class="overlay hidden">               
+    </div> 
+    <header >    
+        <img class="img-logo" src="./images/logo.svg" alt="logo">
+        <div>
+            <img class="icon-menu" src="./images/icon-menu.svg" alt="icon-menu">
+            <div class="nav-container hidden">
+                <img class="icon-close" src="./images/icon-close-menu.svg" alt="icon-close">
+                <nav class="nav">
+                    <div class="links">
+                        <a href="#" id="link-features">
+                            Features
+                            <img class="icon-arrow" src="./images/icon-arrow-down.svg" alt="arrow-down">   
+                            <ul class="icon-list hidden">
+                                <li>
+                                    <img src="./images/icon-todo.svg" alt="icon-todo">
+                                    <a href="#">
+                                    Todo List
+                                    </a> 
+                                </li> 
+                                <li>
+                                    <img src="./images/icon-calendar.svg" alt="icon-calendar">
+                                    <a href="#">
+                                    Calendar     
+                                    </a>
+                                </li> 
+                                <li>
+                                    <img src="./images/icon-reminders.svg" alt="icon-reminders">       
+                                    <a href="#">
+                                        Reminders   
+                                    </a>
+                                </li> 
+                                <li>
+                                    <img src="./images/icon-planning.svg" alt="icon-planning">
+                                    <a href="#">
+                                        Planins     
+                                    </a>
+                                </li>                        
+                            </ul>
+                        </a>
+                        <a href="#" id="link-company">
+                            Company
+                            <img class="icon-arrow" src="./images/icon-arrow-down.svg" alt="arrow-down">
+                            <ul class="list hidden">
+                               <li><a href="#">History</a></li> 
+                               <li><a href="#">Our Team</a></li> 
+                               <li><a href="#">Blog</a></li> 
+                            </ul>
+                        </a>
+                        <a href="#">
+                            Careers
+                        </a>
+                        <a href="#">
+                            About
+                        </a>
+                    </div>                    
+                    <div class="btns-container">
+                        <button class="btn btn-login">
+                            Login
+                        </button>
+                        <button class="btn btn-register">
+                            Register
+                        </button>                    
+
+                    </div>
+                
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main class="container">
+        <section class="image-container">
+            <img class="img-mobile" src="./images/image-hero-mobile.png" alt="image-hero">
+            <img class="img-desktop" src="./images/image-hero-desktop.png" alt="image-hero">
+        </section>
+        <section class="main-content">
+            <h1> Make remote work</h1>
+            <p>
+                Get your team in sync, no matter your location. Streamline processes, create team rituals, and watch productivity soar.
+            </p>
+            <button class="btn-learn">
+                Learn more
+            </button>
+            <div class="icons-client">
+                <img class="icon-client" src="./images/client-databiz.svg" alt="client-databiz">
+                <img class="icon-client" src="./images/client-audiophile.svg" alt="client-audiophile">
+                <img class="icon-client" src="./images/client-meet.svg" alt="client-meet">
+                <img class="icon-client" src="./images/client-maker.svg" alt="client-maker">
+            </div>
+        </section>
+    </main>
+  
+    <script>
+        const btnShowMenu = document.querySelector('.icon-menu');
+        const btnCloseMenu = document.querySelector('.icon-close');
+        const nav = document.querySelector('.nav-container');
+        const overlay = document.querySelector('#overlay');
+        const linkFeatures = document.querySelector('#link-features');
+        const linkCompany = document.querySelector('#link-company');
+        const iconList = document.querySelector('.icon-list');
+        const list = document.querySelector('.list');
+   
+        function toggleVisibility(element, toggleElement) {
+            if (element.classList.contains('hidden')) {
+                element.classList.remove('hidden');
+                toggleElement.children[0].src = './images/icon-arrow-up.svg';
+            } else {
+                element.classList.add('hidden');
+                toggleElement.children[0].src = './images/icon-arrow-down.svg';
+            }
+        }
+        function hideNavAndOverlay() {
+            nav.classList.add('hidden');
+            overlay.classList.add('hidden');
+        }
+        linkFeatures.addEventListener('click', () => {
+            toggleVisibility(iconList, linkFeatures);
+        });
+        linkCompany.addEventListener('click', () => {
+            toggleVisibility(list, linkCompany);
+        });
+        overlay.addEventListener('click', () => {
+            hideNavAndOverlay();
+        });
+        btnCloseMenu.addEventListener('click', () => {
+            hideNavAndOverlay();
+        });
+        btnShowMenu.addEventListener('click', () => {
+            nav.classList.remove('hidden');
+            overlay.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
